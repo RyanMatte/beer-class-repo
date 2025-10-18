@@ -60,53 +60,29 @@ export default function Home() {
             }}
           />
         ))}
-        <style>
-          {`
-            @keyframes rise {
-              0% {
-                transform: translateY(0);
-                opacity: 0.2;
-              }
-              10% {
-                opacity: 0.4;
-              }
-              90% {
-                opacity: 0.4;
-              }
-              100% {
-                transform: translateY(-120vh);
-                opacity: 0.2;
-              }
-            }
-          `}
-        </style>
+        <style>{`
+          @keyframes rise {
+            0% { transform: translateY(0); opacity: 0.2; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-120vh); opacity: 0.2; }
+          }
+        `}</style>
       </div>
 
       <Navbar {...({ textColor, bgColor } as any)} />
 
-      {/* Mobile tap zones: only visible on small screens; cover left/right halves and handle taps */}
-      <div
-        className="md:hidden fixed inset-0 z-40 flex"
-        aria-hidden="false"
-      >
-        <div
-          role="button"
-          aria-label="Previous Beer"
-          onClick={handlePrev}
-          onTouchStart={handlePrev}
-          className="w-1/2 h-full"
-          style={{ cursor: "pointer" }}
-        />
-        <div
-          role="button"
-          aria-label="Next Beer"
-          onClick={handleNext}
-          onTouchStart={handleNext}
-          className="w-1/2 h-full"
-          style={{ cursor: "pointer" }}
-        />
+      {/* Mobile top arrows (visible only on small screens). Tapping these handles prev/next. */}
+      <div className="md:hidden fixed top-48 left-0 right-0 z-40 flex items-center justify-between px-6 pointer-events-auto">
+        <div className="flex-none">
+          <ArrowButton direction="left" onClick={handlePrev} textColor={textColor} />
+        </div>
+        <div className="flex-none">
+          <ArrowButton direction="right" onClick={handleNext} textColor={textColor} />
+        </div>
       </div>
 
+      {/* Desktop layout (arrows hidden on mobile) */}
       <div className="w-full flex justify-center p-8 mt-20 relative z-10">
         <div className="flex flex-row items-start gap-4 max-w-6xl w-full">
           {/* Left Arrow - hidden on small screens */}

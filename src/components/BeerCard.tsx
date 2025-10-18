@@ -3,6 +3,7 @@ import React from "react";
 
 interface Beer {
   beerName: string;
+  ingredients: string;
   abv: number;
   srm: number;
   ibu: any;
@@ -47,6 +48,9 @@ export default function BeerCard({ beer, textColor }: BeerCardProps) {
         </div>
         <div>Variety: <span className="font-bold">{beer.variety}</span></div>
       </div>
+      <div className="mb-2 text-xl w-full">
+          <span className="font-semibold ">Ingredients:</span> {beer.ingredients}
+        </div>
       <div className="mb-4 w-full text-md md:text-base">
         <div className="mb-2 text-xl">
           <span className="font-semibold ">Observe:</span> {beer.observe}

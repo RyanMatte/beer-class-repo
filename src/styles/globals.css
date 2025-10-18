@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+
+
+body {
+  font-family: 'Oswald', Arial, Helvetica, sans-serif !important;
+  @apply bg-white text-black;
+}
+
+body {
+    @apply bg-white text-black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+}
+
+button {
+    @apply bg-blue-500 text-white font-semibold py-2 px-4 rounded;
+}
+
+button:hover {
+    @apply bg-blue-600;
+}
+
+.beer-card {
+    @apply p-4 rounded-lg shadow-lg transition-all duration-300;
+}
+
+.arrow-controls {
+    @apply flex justify-between mt-4;
+}

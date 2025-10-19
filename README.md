@@ -1,22 +1,27 @@
 # Beer Browser
 
-A simple Next.js application that allows users to browse through different beers by swiping left or right on mobile devices or by clicking on arrow buttons. The background color of the application changes based on the SRM (Standard Reference Method) value of the currently displayed beer, enhancing the visual experience.
+A simple Next.js application created for the purpose of hosting my tasting notes for Beer 1, a course offered at George Brown College. 
+
+The notes created are my own, and reflect my tastings at the time the beers were opened. Most importantly, all images, metadata and all are hosted on this website with Vercel
+
+The website has been styled using Tailwind
 
 ## Features
 
-- Swipe left or right to cycle through different beers.
 - Click on left/right arrow buttons to navigate through the beers.
 - Background color changes according to the SRM value of the beer.
 - Displays detailed information about each beer, including:
   - Beer Name
+  - Brewery
+  - Ingredients
   - ABV (Alcohol by Volume)
   - SRM (Standard Reference Method)
-  - IBUY (International Bitterness Units)
+  - IBU (International Bitterness Units)
   - Variety (e.g., Lager, Weissbier)
-  - Observe
+  - Observations
   - Aroma
   - Taste
-  - Image
+  - Image 
 
 ## Project Structure
 
@@ -65,4 +70,6 @@ beer-browser
 
 ## Contributing
 
-Feel free to submit issues or pull requests if you have suggestions or improvements for the project.
+This website is a snapshot on my submission for this course, to maintain academic integrity, no new commits should be indicated past the submission deadline. 
+
+All work has been made by Ryan Matte for the purposes of completing the assignment for Beer 1

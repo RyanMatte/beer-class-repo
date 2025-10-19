@@ -1,6 +1,5 @@
 // Returns hex color for SRM value (simplified)
 export function getSRMColor(srm: number): string {
-  // Example mapping, you can refine this
 if (srm < 2) return "#FFFACD"; // Pale yellow
 if (srm < 4) return "#F8F753"; // Light yellow
 if (srm < 6) return "#F6A600"; // Gold

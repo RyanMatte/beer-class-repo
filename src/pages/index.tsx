@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from "react";
 import beers from "../data/beers.json";
 import { getSRMColor, getContrastingTextColor } from "../utils/srmColor";
+import { useSwipeable } from "react-swipeable";
 import Navbar from "../components/Navbar";
 import BeerCard from "../components/BeerCard";
 import ArrowButton from "../components/ArrowButton";
-
-// ...existing bubble generation...
-const bubbles = Array.from({ length: 50 }, () => {
-  const size = 10 + Math.random() * 8; // random size between 8 and 16
-  return {
-    left: Math.random() * 100,
-    delay: Math.random() * 2,
-    duration: 3 + Math.random() * 4,
-    opacity: 0.3 + Math.random() * 0.2,
-    size: size,
-  };
-});
+import Bubbles from "../components/Bubbles";
 
 export default function Home() {
   const [current, setCurrent] = useState(0);
@@ -23,6 +13,7 @@ export default function Home() {
   const bgColor = getSRMColor(beer.srm);
   const textColor = getContrastingTextColor(bgColor);
 
+  // Each time we cycle through, the background and font change to match the beer's SRM color
   useEffect(() => {
     document.body.style.background = bgColor;
     document.body.style.color = textColor;
@@ -37,65 +28,41 @@ export default function Home() {
   const handlePrev = () => setCurrent((prev) => (prev === 0 ? beers.length - 1 : prev - 1));
   const handleNext = () => setCurrent((prev) => (prev === beers.length - 1 ? 0 : prev + 1));
 
+  // react-swipeable handlers (attach to the BeerCard container)
+    const handlers = useSwipeable({
+      onSwipedLeft: () => handleNext(),
+      onSwipedRight: () => handlePrev(),
+      preventDefaultTouchmoveEvent: true,
+      trackMouse: true,
+      delta: 50,
+    } as any);
+
   return (
     <>
-      {/* Bubbles / background */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{ overflow: "visible", width: "100vw", height: "100vh" }}
-      >
-        {bubbles.map((bubble, i) => (
+      <Bubbles />
+      {/* Center: attach swipe handlers here; preserve vertical scroll with touchAction */}
           <div
-            key={i}
-            className="absolute rounded-full bg-white/30"
-            style={{
-              width: `${bubble.size}px`,
-              height: `${bubble.size}px`,
-              left: `${bubble.left}%`,
-              bottom: "-40px",
-              opacity: bubble.opacity,
-              filter: "blur(2px)",
-              animation: `rise ${bubble.duration}s linear ${bubble.delay}s infinite`,
-              willChange: "transform",
-            }}
-          />
-        ))}
-        <style>{`
-          @keyframes rise {
-            0% { transform: translateY(0); opacity: 0.2; }
-            10% { opacity: 0.4; }
-            90% { opacity: 0.4; }
-            100% { transform: translateY(-120vh); opacity: 0.2; }
-          }
-        `}</style>
-      </div>
-
+            className="flex-1 min-w-0"
+            {...handlers}
+            style={{ touchAction: "pan-y" }}
+            role="region"
+            aria-label="Beer card carousel (swipe left/right)"
+          >
       <Navbar {...({ textColor, bgColor } as any)} />
 
-      {/* Mobile top arrows (visible only on small screens). Tapping these handles prev/next. */}
-      <div className="md:hidden fixed top-48 left-0 right-0 z-40 flex items-center justify-between px-6 pointer-events-auto">
-        <div className="flex-none">
-          <ArrowButton direction="left" onClick={handlePrev} textColor={textColor} />
-        </div>
-        <div className="flex-none">
-          <ArrowButton direction="right" onClick={handleNext} textColor={textColor} />
-        </div>
-      </div>
+      {/* removed mobile fixed arrows — swipe is used on touch devices */}
 
-      {/* Desktop layout (arrows hidden on mobile) */}
+      {/* Desktop layout*/}
       <div className="w-full flex justify-center p-8 mt-20 relative z-10">
         <div className="flex flex-row items-start gap-4 max-w-6xl w-full">
-          {/* Left Arrow - hidden on small screens */}
           <div className="flex-shrink-0 self-center hidden md:flex">
             <ArrowButton direction="left" onClick={handlePrev} textColor={textColor} />
           </div>
 
-          {/* Beer Card */}
-          <div className="flex-1 min-w-0">
+          
             <BeerCard beer={{ ...beer }} textColor={textColor} />
           </div>
 
-          {/* Right Arrow - hidden on small screens */}
           <div className="flex-shrink-0 self-center hidden md:flex">
             <ArrowButton direction="right" onClick={handleNext} textColor={textColor} />
           </div>

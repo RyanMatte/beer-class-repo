@@ -62,6 +62,9 @@ export default function BeerCard({ beer, textColor }: BeerCardProps) {
           <span className="font-semibold">Taste:</span> {beer.taste}
         </div>
       </div>
+      <div className="py-4">
+        <h3>Created by Ryan Matte for the course Beer 1</h3>
+      </div>
     </div>
   );
 }
